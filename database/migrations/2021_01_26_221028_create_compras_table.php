@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateColeccionTable extends Migration
+class CreateComprasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateColeccionTable extends Migration
      */
     public function up()
     {
-        Schema::create('colecciones', function (Blueprint $table) {
+        Schema::create('compras', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_coleccion', 100);
-            $table->string('imagen_coleccion')->nullable();
-            $table->date('fecha_edicion');
+            $table->foreignId('venta')->constrained();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateColeccionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colecciones');
+        Schema::dropIfExists('compras');
     }
 }

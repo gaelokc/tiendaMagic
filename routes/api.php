@@ -24,5 +24,5 @@ Route::post('usuarios', 'UserController@store');
 Route::post('login', 'UserController@login');
 
 Route::group (['middleware' => 'auth:api'], function() {
-Route::ApiResource('usuarios2', 'login');
+	Route::post('logout', 'UserController@logout');
 });

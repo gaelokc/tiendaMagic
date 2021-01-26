@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Usuario;
 use App\Request\CreateUsuarioRequest;
 
+use App\Models\Usuario;
+
 class login extends Controller
 {
     public function index()
