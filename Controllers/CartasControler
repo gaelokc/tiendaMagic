@@ -1,0 +1,120 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Models\Usuario;
+use App\Models\Carta;
+
+class CartasController extends Controller
+{
+    //
+    public function crearCarta(Request $request){
+
+		$respuesta = "";
+
+		//Procesar los datos recibidos
+		$datos = $request->getContent();
+
+		//Verificar que hay datos
+		$datos = json_decode($datos);
+
+		if($datos){
+			//TODO: validar los datos introducidos
+			if(Employer::find($datos->employer)&&Ninja::find($datos->ninja)){
+				//Crear la carta
+				$carta = new carta();
+
+
+				//Valores obligatorios
+				$carta->nombre_carta = $datos->nombre_carta;
+				$carta->descripcion = $datos->descripcion;
+				$carta->coleccion = $datos->coleccion;
+				
+				
+				//Guardar la carta
+				try{
+
+					$carta->save();
+
+					$respuesta = "OK";
+				}catch(\Exception $e){
+					$respuesta = $e->getMessage();
+				}
+
+			}else{
+				$respuesta = "Datos de la carta incorrectos";
+			}
+
+		}else{
+			$respuesta = "Incorrect data";
+		}
+		
+
+
+		return response($respuesta);
+	}
+
+	public function modificarCarta(Request $request,$id){
+
+		
+		$respuesta = "";
+
+		//Procesar los datos recibidos
+		$datos = $request->getContent();
+
+		//Verificar que hay datos
+		$datos = json_decode($datos);
+
+		if($carta){
+
+			//Procesar los datos recibidos
+			$datos = $request->getContent();
+
+			//Verificar que hay datos
+			$datos = json_decode($datos);
+
+			if($datos){
+
+				//TODO: validar los datos introducidos
+
+				//Valores obligatorios
+				if(isset($datos->nombre_carta))
+					$usuario->nombre_carta = $datos->nombre_carta;
+				if(isset($datos->descripcion))
+					$usuario->descripcion = $datos->descripcion;
+				if(isset($datos->coleccion))
+					$usuario->coleccion = $datos->coleccion;
+
+				//Guardar el cliente
+				try{
+
+					$employer->save();
+
+					$respuesta = "OK";
+				}catch(\Exception $e){
+					$respuesta = $e->getMessage();
+				}
+			}else{
+				$respuesta = "Incorrect Data";
+			}
+		}else{
+			$response = "Carta no encontrada";
+		}
+
+		return response($respuesta);
+	}
+
+	public function verCarta($id){
+
+		$carta = Carta::find($id);
+
+		return response()->json([
+			"carta" => $carta->carta->nombre_carta,
+			"descripcion" => $carta->carta->descripcion,
+			"coleccion" => $carta->coleccion,
+		]);
+
+	}
+}
