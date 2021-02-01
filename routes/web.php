@@ -10,3 +10,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', function() {
+	Log::channel('abuse')->info('API endpoint abuse',[
+		'user_id' =>1
+	]);
+});
