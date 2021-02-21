@@ -206,11 +206,14 @@ class cartasController extends Controller
 	public function listarCartasFiltro($parametro,$valor){
 
 			if($parametro == "id")
+				Log::info('El parametro ha coincidido con el valor id de una de las cartas');
 				$carta = Carta::find($valor);
 			else
+				Log::info('El parametro no es un valor id de una de las cartas');
 				$carta = Carta::where('nombre_carta',$valor)->first();
 
 			if($carta){
+				Log::info('Ha encontrado una carta');
 
 				$datoscarta = [
 						"id" => $carta->id,
@@ -220,8 +223,10 @@ class cartasController extends Controller
 					];
 
 				return response()->json( $datosCarta);
+				Log::info('Devuelve los datos de dicha carta');
 			}
 			return response("Carta no encontrada");
+			Log::error('El programa no ha encontrado la carta seleccionada o el parametro no coincide con el valor requerido');
 		
 	}
 
